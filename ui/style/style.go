@@ -57,6 +57,7 @@ var (
 	DropDownUnselected = tcell.StyleDefault.Background(tcell.ColorWhiteSmoke).Foreground(tcell.ColorBlack)
 	DropDownSelected   = tcell.StyleDefault.Background(tcell.ColorLightSlateGray).Foreground(tcell.ColorWhite)
 	// other primitives.
+	InputLabelStyle   = tcell.StyleDefault.Background(DialogBgColor).Foreground(DialogFgColor)
 	InputFieldBgColor = tcell.ColorGray
 	ButtonBgColor     = tcell.ColorMediumPurple
 )
