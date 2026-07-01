@@ -9,7 +9,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-type ShortCutsConfig struct {
+type TUIConfig struct {
 	Views Views `json:"views"`
 }
 
@@ -89,7 +89,7 @@ type Images struct {
 	Prune   string `json:"prune"`
 	Remove  string `json:"rm"`
 	Save    string `json:"save"`
-	Search  string `json:"search"`
+	Search  string `json:"search/pull"`
 	Tag     string `json:"tag"`
 	Tree    string `json:"tree"`
 	Untag   string `json:"untag"`
@@ -108,8 +108,8 @@ type Secrets struct {
 	Remove  string `json:"rm"`
 }
 
-func NewShotcutsConfig() (*ShortCutsConfig, error) {
-	var config ShortCutsConfig
+func NewTUIConfig() (*TUIConfig, error) {
+	var config TUIConfig
 
 	homedir, err := os.UserHomeDir()
 	if err != nil {

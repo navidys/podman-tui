@@ -21,14 +21,8 @@ var (
 	ErrConnectionNotFound      = errors.New("connection not found")
 )
 
-type PodmanRemoteConfig struct {
-	podmanOptions *entities.PodmanConfig
-}
-
-func NewPodmanRemoteConfig() (*PodmanRemoteConfig, error) {
+func newPodmanRemoteConfig() (*entities.PodmanConfig, error) {
 	log.Debug().Msg("config: loading podman remote connections")
-
-	newConfig := &PodmanRemoteConfig{}
 
 	defaultConfig, err := cconfig.New(&cconfig.Options{
 		SetDefault: true,
@@ -39,12 +33,11 @@ func NewPodmanRemoteConfig() (*PodmanRemoteConfig, error) {
 	}
 
 	podmanOptions := entities.PodmanConfig{ContainersConf: &cconfig.Config{}, ContainersConfDefaultsRO: defaultConfig}
-	newConfig.podmanOptions = &podmanOptions
 
-	return newConfig, nil
+	return &podmanOptions, nil
 }
 
-func (c *PodmanRemoteConfig) RemoteConnections() []registry.Connection {
+func (c *AppConfig) RemoteConnections() []registry.Connection {
 	rconn := make([]registry.Connection, 0)
 
 	conns, err := c.podmanOptions.ContainersConfDefaultsRO.GetAllConnections()
@@ -68,7 +61,7 @@ func (c *PodmanRemoteConfig) RemoteConnections() []registry.Connection {
 	return rconn
 }
 
-func (c *PodmanRemoteConfig) Remove(name string) error {
+func (c *AppConfig) RemoveConnection(name string) error {
 	return cconfig.EditConnectionConfig(func(cfg *cconfig.ConnectionsFile) error {
 		delete(cfg.Connection.Connections, name)
 
@@ -88,7 +81,7 @@ func (c *PodmanRemoteConfig) Remove(name string) error {
 	})
 }
 
-func (c *PodmanRemoteConfig) Add(name string, uri string, identity string) error {
+func (c *AppConfig) AddConnection(name string, uri string, identity string) error {
 	connURI, err := validateNewConnection(name, uri, identity)
 	if err != nil {
 		return err
@@ -113,7 +106,7 @@ func (c *PodmanRemoteConfig) Add(name string, uri string, identity string) error
 	})
 }
 
-func (c *PodmanRemoteConfig) SetDefaultConnection(name string) error {
+func (c *AppConfig) SetDefaultConnection(name string) error {
 	return cconfig.EditConnectionConfig(func(cfg *cconfig.ConnectionsFile) error {
 		if _, found := cfg.Connection.Connections[name]; !found {
 			return ErrConnectionNotFound
@@ -125,7 +118,7 @@ func (c *PodmanRemoteConfig) SetDefaultConnection(name string) error {
 	})
 }
 
-func (c *PodmanRemoteConfig) GetDefaultConnection() registry.Connection {
+func (c *AppConfig) GetDefaultConnection() registry.Connection {
 	for _, conn := range c.RemoteConnections() {
 		if conn.Default {
 			return registry.Connection{

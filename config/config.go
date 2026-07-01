@@ -2,36 +2,36 @@ package config
 
 import (
 	"github.com/containers/podman-tui/pdcs/registry"
+	"go.podman.io/podman/v6/pkg/domain/entities"
 )
 
-type Config interface {
-	RemoteConnections() []registry.Connection
-	SetDefaultConnection(name string) error
-	GetDefaultConnection() registry.Connection
-	Add(name string, uri string, identity string) error
-	Remove(name string) error
+type AppConfig struct {
+	podmanOptions *entities.PodmanConfig
+	tuiOptions    *TUIConfig
 }
 
-func NewConfig() (Config, error) { //nolint:ireturn
-	var cfg Config
+func NewConfig() (*AppConfig, error) { //nolint:ireturn
+	var cfg AppConfig
 
 	// load podman remote connections config
-	pconfig, err := NewPodmanRemoteConfig()
+	pconfig, err := newPodmanRemoteConfig()
 	if err != nil {
 		return nil, err
 	}
 
-	cfg = pconfig
+	cfg.podmanOptions = pconfig
 
-	_, err = NewShotcutsConfig()
+	tuiCfg, err := NewTUIConfig()
 	if err != nil {
 		return nil, err
 	}
+
+	cfg.tuiOptions = tuiCfg
 
 	defaultConn := cfg.GetDefaultConnection()
 	if defaultConn.URI != "" && defaultConn.Name != "" {
 		registry.SetConnection(defaultConn)
 	}
 
-	return cfg, nil
+	return &cfg, nil
 }

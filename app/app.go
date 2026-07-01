@@ -40,7 +40,7 @@ type App struct {
 	currentPage     string
 	needInitUI      bool
 	fastRefreshChan chan bool
-	config          config.Config
+	config          *config.AppConfig
 }
 
 // NewApp returns new app.
@@ -84,8 +84,8 @@ func NewApp(name string, version string) *App {
 
 	app.system.SetConnectionConnectFunc(app.health.Connect)
 	app.system.SetConnectionDisconnectFunc(app.health.Disconnect)
-	app.system.SetConnectionAddFunc(app.config.Add)
-	app.system.SetConnectionRemoveFunc(app.config.Remove)
+	app.system.SetConnectionAddFunc(app.config.AddConnection)
+	app.system.SetConnectionRemoveFunc(app.config.RemoveConnection)
 	app.system.SetAppFocusHandler(func() {
 		app.SetFocus(app.system)
 
