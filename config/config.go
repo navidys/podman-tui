@@ -23,6 +23,11 @@ func NewConfig() (Config, error) { //nolint:ireturn
 
 	cfg = pconfig
 
+	_, err = NewShotcutsConfig()
+	if err != nil {
+		return nil, err
+	}
+
 	defaultConn := cfg.GetDefaultConnection()
 	if defaultConn.URI != "" && defaultConn.Name != "" {
 		registry.SetConnection(defaultConn)

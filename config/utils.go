@@ -25,7 +25,7 @@ const (
 	// inside a given config directory.
 	_configPath = "podman-tui/podman-tui.json"
 	// UserAppConfig holds the user podman-tui config path.
-	UserAppConfig = ".config/" + _configPath
+	userAppConfig = ".config/" + _configPath
 )
 
 var ErrRemotePodmanUDSReport = errors.New("remote podman failed to report its UDS socket")

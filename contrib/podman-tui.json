@@ -1,0 +1,90 @@
+{
+    "views": {
+        "system": {
+            "add_connection": "a",
+            "connect": "c",
+            "disconnect": "d",
+            "disk_usage": "u",
+            "events": "e",
+            "info": "i",
+            "prune": "p",
+            "remove_connection": "r",
+            "set default": "s"
+        },
+        "pods": {
+            "create": "c",
+            "inspect": "i",
+            "kill": "k",
+            "pause": "p",
+            "prune": "n",
+            "restart": "e",
+            "rm": "r",
+            "start": "s",
+            "stats": "a",
+            "stop": "o",
+            "top": "t",
+            "unpause": "u"
+        },
+        "containers": {
+            "attach": "a",
+            "checkpoint": "b",
+            "commit": "m",
+            "create": "c",
+            "diff": "d",
+            "exec": "e",
+            "healthcheck": "h",
+            "inspect": "i",
+            "kill": "k",
+            "logs": "l",
+            "pause": "p",
+            "port": "o",
+            "prune": "x",
+            "rename": "t",
+            "restore": "v",
+            "rm": "r",
+            "run": "u",
+            "start": "s",
+            "stats": "y",
+            "stop": "z",
+            "top": "t",
+            "unpause": "u"
+
+        },
+        "volumes": {
+            "create": "c",
+            "export": "e",
+            "import": "m",
+            "inspect": "i",
+            "prune": "x",
+            "rm": "r"
+        },
+        "images": {
+            "build": "b",
+            "diff": "d",
+            "history": "h",
+            "import": "m",
+            "inspect": "i",
+            "prune": "x",
+            "push": "u",
+            "rm": "r",
+            "save": "s",
+            "search/pull": "p",
+            "tag": "a",
+            "tree": "t",
+            "untag": "u"
+        },
+        "networks": {
+            "connect": "n",
+            "create": "c",
+            "disconnect": "d",
+            "inspect": "i",
+            "prune": "x",
+            "rm": "r"
+        },
+        "secrets": {
+            "create": "c",
+            "inspect": "i",
+            "rm": "r"
+        }
+    }
+}
