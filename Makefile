@@ -30,10 +30,7 @@ ifeq ($(GOOS), windows)
 endif
 
 .PHONY: default
-default: all
-
-.PHONY: all
-all: binary
+default: binary
 
 .PHONY: binary
 binary: $(TARGET)  ## Build podman-tui binary
